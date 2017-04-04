@@ -1,0 +1,128 @@
+    <div class="reveal" id="contactCard" data-reveal data-options="showDelay:1000; hideDelay:1000" ng-model="curContact">
+	<form name="updateContact">
+        <h3>Contact</h3>
+        <div class="row contactCard">
+            <div class="small-12 medium-8 large-4 columns"><img src="css/img/avatar.png"/></div>
+            <div class="small-12 medium-8 large-8 columns">
+                <div class="small-12 medium-6 large-4 columns">Contact Id</div>
+                <div class="small-12 medium-6 large-8 columns">{{curContact.client_id}}</div>
+                <div class="small-12 medium-6 large-4 columns">First Name</div>
+                <div class="small-12 medium-6 large-8 columns">{{curContact.first_name}}</div>
+                <div class="small-12 medium-6 large-4 columns">Last Name</div>
+                <div class="small-12 medium-6 large-8 columns">
+                    <span ng-hide="editLN">{{curContact.last_name}} <i class="fi-pencil" ng-click="editLN = true"></i></span>
+                    <span ng-show="editLN">
+                        <input type="text" ng-model="curContact.last_name">
+                        <i ng-click="editLN = false" class="fi-check"></i>
+                        <i ng-click="editLN = false" class="fi-x"></i>
+                    </span>
+                </div>
+                <div class="small-12 medium-6 large-4 columns">Email</div>
+                <div class="small-12 medium-6 large-8 columns">
+                    <span ng-hide="editEmail">{{curContact.email}} <i class="fi-pencil" ng-click="editEmail = true"></i></span>
+                    <span ng-show="editEmail">
+                        <input type="email" ng-model="curContact.email">
+                        <i ng-click="editEmail = false" class="fi-check"></i>
+                        <i ng-click="editEmail = false" class="fi-x"></i>
+                    </span>
+                </div>
+                <div class="small-12 medium-6 large-4 columns">Phone</div>
+                <div class="small-12 medium-6 large-8 columns">
+                    <span ng-hide="editPhone">{{curContact.phone}} <i class="fi-pencil" ng-click="editPhone = true"></i></span>
+                    <span ng-show="editPhone">
+                        <input type="text" ng-model="curContact.phone">
+                        <i ng-click="editPhone = false" class="fi-check"></i>
+                        <i ng-click="editPhone = false" class="fi-x"></i>
+                    </span>
+                </div>
+                <div class="small-12 medium-6 large-4 columns">Status</div>
+                <div class="small-12 medium-6 large-8 columns">
+                    <div class="switch tiny">
+                      <input class="switch-input" id="statusSwitch" type="checkbox" name="statusSwitch"  ng-checked="curContact.status" ng-model="curContact.status">
+                      <label class="switch-paddle" for="statusSwitch">
+                        <span class="show-for-sr"></span>
+                      </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <hr/>
+        <div class="row">
+            <div id ="contactCallout" class="callout" ng-class="actionStatus" ng-show="actionStatus">{{actionResult}}</div>
+        </div>
+        <div class="expanded button-group">
+            <a class="button radius" type="submit" data-open="newContactCard"><i class="fi-plus"></i> Add new Contact</a>
+            <a class="button radius warning" type="submit" ng-click="updateItem()"><i class="fi-save"></i> Update this Contact</a>
+            <a class="button radius alert" type="submit" ng-click="deleteItem()"><i class="fi-minus"></i> Delete this Contact</a>
+        </div>
+	</form>
+    </div>
+    <div class="reveal" id="newContactCard" data-reveal data-options="showDelay:1000; hideDelay:1000" ng-model="newContact">
+	<form id="addContact" name="addContact" data-abide novalidate>
+        <h3>Add Contact</h3>
+        <div class="row contactCard">
+            <div class="small-12 medium-8 large-4 columns"><img src="css/img/avatar.png"/></div>
+            <div class="small-12 medium-8 large-8 columns">
+                <div class="small-12 medium-6 large-4 columns">First Name</div>
+                <div class="small-12 medium-6 large-8 columns">
+				<label>
+					<input type="text" placeholder="First Name" ng-model="newContact.first_name" required>
+					<span class="form-error">
+					  This is required.
+					</span>
+				</label>
+				</div>
+                <div class="small-12 medium-6 large-4 columns">Last Name</div>
+                <div class="small-12 medium-6 large-8 columns">
+				<label>
+					<input type="text" placeholder="Last Name" ng-model="newContact.last_name" required>
+					<span class="form-error">
+					  This is required.
+					</span>
+				</label>
+				</div>
+                <div class="small-12 medium-6 large-4 columns">Email</div>
+                <div class="small-12 medium-6 large-8 columns">
+				<label>
+					<input type="email" placeholder="email@email.com" ng-model="newContact.email" required patter="email">
+					<span class="form-error">
+					  This is not a valid email.
+					</span>
+				</label>
+				</div>
+                <div class="small-12 medium-6 large-4 columns">Phone</div>
+                <div class="small-12 medium-6 large-8 columns">
+				<label>
+					<input type="text" placeholder="123-456-7890" ng-model="newContact.phone" required patter="phoneNumber">
+					<span class="form-error">
+					  This is not a valid phone number.
+					</span>
+				</label>
+				</div>
+                <div class="small-12 medium-6 large-4 columns">Status</div>
+                <div class="small-12 medium-6 large-8 columns">
+                    <div class="switch tiny">
+                      <input class="switch-input" id="newStatusSwitch" type="checkbox" name="newStatusSwitch"  ng-checked="newContact.status" ng-model="newContact.status">
+                      <label class="switch-paddle" for="newStatusSwitch">
+                        <span class="show-for-sr"></span>
+                      </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <hr/>
+        <div class="row">
+            <div id="newContactCallout" class="callout" ng-class="actionStatus" ng-show="actionStatus">{{actionResult}}</div>
+        </div>
+        <div class="expanded button-group">
+            <button class="button radius" type="submit" value="submit"><i class="fi-plus"></i> Add Contact</button>
+            <a class="button secondary" type="text" data-close aria-label="Close reveal">Cancel</a>
+        </div>
+	</form>
+    </div>

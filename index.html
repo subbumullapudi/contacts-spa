@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html ng-app="contacts">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacts</title>
+    <link rel="stylesheet" href="css/foundation.min.css"/>
+    <link rel="stylesheet" href="css/fonts/foundation-icons.css"/>
+    <link rel="stylesheet" href="css/contacts.css"/>
+    <script src="js/angular.min.js"></script>
+</head>
+<body ng-cloak ng-controller="contactsCtrl">
+<div class="row">
+    <h1 class="small-12 columns">Contacts Management<h1/>
+</div>
+<!--Search - Start -->
+<div class="row" id="search">
+    <div class="small-12 columns">
+        <input class="small-12 medium-6 large-6 columns" type="text" ng-model="searchKey" placeholder="Search contacts">
+        <a id="newContactBtn" class="button radius small-12 medium-6 large-6 large-offset-4 columns" type="submit" data-open="newContactCard">
+			<i class="fi-plus"></i>
+			<span class="add"><b>Add a Contact</b></span>
+		</a>
+    </div>
+</div>
+<!--Search - End -->
+<div class="row">
+    <div class="small-12 columns">
+		<div ng-if="whileLoading"><b>Loading Data....</b></div>
+		<div ng-if="errorLoading"><b>Sorry, Error loading data. Please try again later.</b></div>
+		<!--Contacts Table - Start -->
+        <table class="hover stack striped" ng-if="!whileLoading">
+            <thead>
+                <tr ng-init="sortBy = 'client_id';sortOrder = true">
+                  <th width="110" ng-click="sortBy = 'client_id';sortOrder = !sortOrder">Client ID
+					<i ng-show="sortBy == 'client_id' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'client_id' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                  <th width="200" ng-click="sortBy = 'first_name';sortOrder = !sortOrder">First name
+					<i ng-show="sortBy == 'first_name' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'first_name' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                  <th width="200" ng-click="sortBy = 'last_name';sortOrder = !sortOrder">Last name
+					<i ng-show="sortBy == 'last_name' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'last_name' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                  <th width="200" ng-click="sortBy = 'email';sortOrder = !sortOrder">Email
+					<i ng-show="sortBy == 'email' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'email' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                  <th width="200" ng-click="sortBy = 'phone';sortOrder = !sortOrder">Phone
+					<i ng-show="sortBy == 'phone' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'phone' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                  <th width="100" ng-click="sortBy = 'status';sortOrder = !sortOrder">Status
+					<i ng-show="sortBy == 'status' && sortOrder" class="fi-arrow-up"></i>
+					<i ng-show="sortBy == 'status' && !sortOrder" class="fi-arrow-down"></i>
+				  </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contact in fullList | orderBy:sortBy:sortOrder | filter:search" ng-click="readItem(contact.client_id, contact.first_name)">
+                    <td>{{contact.client_id}}</td>
+                    <td>{{contact.first_name}}</td>
+                    <td>{{contact.last_name}}</td>
+                    <td>{{contact.email}}</td>
+                    <td>{{contact.phone}}</td>
+                    <td>{{contact.status ? 'Active' : 'Inactive'}}</td>
+                </tr>
+            </tbody>
+        </table>
+		<!--Contacts Table - End -->
+    </div>
+	<!--Include Contact Cards -->
+	<div ng-include src="'contactCard.html'" onload="initFoundation()"></div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/foundation.min.js"></script>
+<script src="js/aws-sdk.min.js"></script>
+<script src="js/contacts.controller.js"></script>
+</body>
+</html>

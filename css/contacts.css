@@ -1,0 +1,61 @@
+#newContactBtn {
+  width: 45px;
+  height: 40.4px;
+}
+#newContactBtn:hover {
+  width: 145px;
+  height: 40.4px;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+}
+#newContactBtn:hover .add {
+  -webkit-animation: fadeIn 5s;
+  animation: fadeIn 5s;
+  display: inline-block;
+}
+
+#newContactBtn .fi-plus {
+  float: left;
+}
+
+.add {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+div.contactCard > div > div:nth-child(odd) {
+  text-align: right;
+  font-weight: bold;
+}
+div.contactCard span input {
+  width: 85%;
+  margin: 0;
+  float: left;
+}
+div.contactCard input ~ i {
+  padding: 0 .25rem .25rem .25rem;
+}
+div.contactCard span {
+  visibility: visible;
+  opacity: 1;
+}
+div.contactCard span.ng-hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+table.hover {
+  cursor: pointer;
+}
